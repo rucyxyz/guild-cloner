@@ -1,7 +1,6 @@
 let guilds = [];
 let ws = null;
 
-// ─── ログイン ───
 async function login() {
   const token = document.getElementById("token").value.trim();
   if (!token) return alert("トークンを入力してください");
@@ -27,10 +26,10 @@ async function login() {
     document.getElementById("step3").style.display = "block";
     document.getElementById("step4").style.display = "block";
 
-    log(`✅ ${guilds.length} 個のサーバーに接続しました`);
+    log(`${guilds.length} 個のサーバーに接続しました`);
   } catch (e) {
     alert("認証失敗: " + e.message);
-    log(`❌ 認証失敗: ${e.message}`);
+    log(`認証失敗: ${e.message}`);
   } finally {
     btn.disabled = false;
     btn.textContent = "認証";
@@ -50,7 +49,6 @@ function populateGuilds() {
   });
 }
 
-// ─── 複製開始 ───
 async function startClone() {
   const token = document.getElementById("token").value.trim();
   const srcId = document.getElementById("src-select").value;
@@ -68,7 +66,6 @@ async function startClone() {
     message_limit: parseInt(document.getElementById("msg-limit").value) || 100,
   };
 
-  // WebSocket接続（進捗受信）
   connectWS();
 
   document.getElementById("btn-clone").disabled = true;
@@ -83,14 +80,13 @@ async function startClone() {
     });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error);
-    log("🚀 複製を開始しました...");
+    log("複製を開始しました...");
   } catch (e) {
-    log(`❌ 開始失敗: ${e.message}`);
+    log(`開始失敗: ${e.message}`);
     document.getElementById("btn-clone").disabled = false;
   }
 }
 
-// ─── WebSocket ───
 function connectWS() {
   if (ws) ws.close();
   ws = new WebSocket(`ws://${location.host}/ws`);
@@ -106,7 +102,6 @@ function connectWS() {
   ws.onclose = () => { ws = null; };
 }
 
-// ─── UIヘルパー ───
 function log(msg) {
   const el = document.getElementById("log");
   const time = new Date().toLocaleTimeString("ja-JP");
@@ -118,12 +113,3 @@ function setProgress(p) {
   document.getElementById("progress").style.width = p + "%";
   document.getElementById("percent").textContent = p + "%";
 }
-
-// ─── ナビゲーション ───
-document.querySelectorAll("nav a").forEach(a => {
-  a.addEventListener("click", () => {
-    document.querySelectorAll("nav a").forEach(x => x.classList.remove("active"));
-    a.classList.add("active");
-    // ヘルプ切替などはお好みで
-  });
-});
