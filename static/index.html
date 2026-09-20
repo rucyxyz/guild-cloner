@@ -3,65 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Discord サーバークローン</title>
+<title>サーバークローン</title>
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-<aside>
-  <h1>🎮 サーバークローン</h1>
-  <nav>
-    <a class="active" data-page="main">📡 クローン</a>
-    <a data-page="help">❓ ヘルプ</a>
-  </nav>
-  <div class="warning">
-    ⚠️ 自己責任で使用<br>
-    <small>User TokenはDiscord ToS違反です</small>
-  </div>
-</aside>
 
 <main>
-  <!-- STEP 1 -->
   <section class="step">
-    <h2><span class="num">1</span> トークン認証</h2>
+    <h2>トークン認証</h2>
     <div class="row">
       <input type="password" id="token" placeholder="Discordトークンを入力">
       <button id="btn-login" onclick="login()">認証</button>
     </div>
-    <p class="hint">トークンはこのPCのブラウザ→ローカルサーバー間のみで使用されます。外部送信は一切ありません。</p>
-    <p class="hint danger">⚠️ 使用後は必ずDiscordのパスワード変更でトークンを無効化してください。</p>
   </section>
 
-  <!-- STEP 2 -->
   <section class="step" id="step2" style="display:none">
-    <h2><span class="num">2</span> サーバー選択</h2>
+    <h2>サーバー選択</h2>
     <label>複製元サーバー</label>
     <select id="src-select"></select>
 
-    <label style="margin-top:12px">複製先サーバー（空のサーバー）</label>
+    <label>複製先サーバー（空のサーバー）</label>
     <select id="dst-select"></select>
   </section>
 
-  <!-- STEP 3 -->
   <section class="step" id="step3" style="display:none">
-    <h2><span class="num">3</span> 複製する項目</h2>
-    <label class="check"><input type="checkbox" id="opt-roles" checked> 🎭 ロール</label>
-    <label class="check"><input type="checkbox" id="opt-categories" checked> 📁 カテゴリ</label>
-    <label class="check"><input type="checkbox" id="opt-text" checked> 💬 テキストチャンネル</label>
-    <label class="check"><input type="checkbox" id="opt-voice" checked> 🔊 ボイスチャンネル</label>
+    <h2>複製する項目</h2>
+    <label class="check"><input type="checkbox" id="opt-roles" checked> ロール</label>
+    <label class="check"><input type="checkbox" id="opt-categories" checked> カテゴリ</label>
+    <label class="check"><input type="checkbox" id="opt-text" checked> テキストチャンネル</label>
+    <label class="check"><input type="checkbox" id="opt-voice" checked> ボイスチャンネル</label>
     <label class="check">
       <input type="checkbox" id="opt-messages">
-      📨 メッセージ
-      <span style="margin-left:8px">最大</span>
-      <input type="number" id="msg-limit" value="100" min="1" max="1000" style="width:80px">
+      メッセージ
+      <span>最大</span>
+      <input type="number" id="msg-limit" value="100" min="1" max="1000">
       <span>件/チャンネル</span>
     </label>
-    <p class="hint">メッセージ複製は非常に時間がかかります（レート制限のため）。</p>
   </section>
 
-  <!-- STEP 4 -->
   <section class="step" id="step4" style="display:none">
-    <h2><span class="num">4</span> 実行</h2>
-    <button id="btn-clone" class="primary" onclick="startClone()">▶ 複製を開始</button>
+    <h2>実行</h2>
+    <button id="btn-clone" class="primary" onclick="startClone()">複製を開始</button>
     <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
     <div class="percent" id="percent">0%</div>
     <div class="log" id="log">待機中...</div>
