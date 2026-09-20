@@ -26,10 +26,10 @@ async function login() {
     document.getElementById("step3").style.display = "block";
     document.getElementById("step4").style.display = "block";
 
-    log(`${guilds.length} 個のサーバーに接続しました`);
+    log(guilds.length + " 個のサーバーに接続しました");
   } catch (e) {
     alert("認証失敗: " + e.message);
-    log(`認証失敗: ${e.message}`);
+    log("認証失敗: " + e.message);
   } finally {
     btn.disabled = false;
     btn.textContent = "認証";
@@ -42,10 +42,10 @@ function populateGuilds() {
   src.innerHTML = '<option value="">-- 選択 --</option>';
   dst.innerHTML = '<option value="">-- 選択 --</option>';
 
-  guilds.forEach(g => {
-    const label = `${g.name} (${g.id})`;
-    src.insertAdjacentHTML("beforeend", `<option value="${g.id}">${label}</option>`);
-    dst.insertAdjacentHTML("beforeend", `<option value="${g.id}">${label}</option>`);
+  guilds.forEach(function(g) {
+    const label = g.name + " (" + g.id + ")";
+    src.insertAdjacentHTML("beforeend", '<option value="' + g.id + '">' + label + '</option>');
+    dst.insertAdjacentHTML("beforeend", '<option value="' + g.id + '">' + label + '</option>');
   });
 }
 
@@ -76,36 +76,36 @@ async function startClone() {
     const res = await fetch("/api/clone", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token, src_id: srcId, dst_id: dstId, options }),
+      body: JSON.stringify({ token: token, src_id: srcId, dst_id: dstId, options: options }),
     });
     const data = await res.json();
     if (!data.ok) throw new Error(data.error);
     log("複製を開始しました...");
   } catch (e) {
-    log(`開始失敗: ${e.message}`);
+    log("開始失敗: " + e.message);
     document.getElementById("btn-clone").disabled = false;
   }
 }
 
 function connectWS() {
   if (ws) ws.close();
-  ws = new WebSocket(`ws://${location.host}/ws`);
-  ws.onmessage = (ev) => {
+  ws = new WebSocket("ws://" + location.host + "/ws");
+  ws.onmessage = function(ev) {
     const data = JSON.parse(ev.data);
     log(data.message);
     setProgress(data.percent);
 
-    if (data.percent >= 100 || data.message.startsWith("❌")) {
+    if (data.percent >= 100) {
       document.getElementById("btn-clone").disabled = false;
     }
   };
-  ws.onclose = () => { ws = null; };
+  ws.onclose = function() { ws = null; };
 }
 
 function log(msg) {
   const el = document.getElementById("log");
   const time = new Date().toLocaleTimeString("ja-JP");
-  el.textContent += `[${time}] ${msg}\n`;
+  el.textContent += "[" + time + "] " + msg + "\n";
   el.scrollTop = el.scrollHeight;
 }
 
