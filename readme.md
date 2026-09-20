@@ -56,7 +56,7 @@ UIはDiscordのダークテーマを再現し、日本語で使いやすく設�
 
 ```bash
 git clone https://github.com/rucyxyz/guild-cloner.git
-cd guild-cloner-web
+cd guild-cloner
 ```
 
 ### 2. 仮想環境を作成
