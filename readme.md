@@ -35,8 +35,44 @@ UIはDiscordのダークテーマを再現し、日本語で使いやすく設�
 - 🎭 **選択的クローン** — ロール / カテゴリ / テキスト / ボイス / メッセージを個別にON/OFF
 - 📨 **メッセージ履歴コピー** — 件数を指定して過去ログを転送（要User Token）
 
+
 ---
 
-## 📸 スクリーンショット
+## 🖥 動作環境
 
-> （ここに画像を貼ってください：`docs/screenshot.png` など）
+| 項目 | 要件 |
+|---|---|
+| OS | Windows / macOS / Linux |
+| Python | 3.9 以上 |
+| ブラウザ | Chrome / Edge / Firefox 最新版 |
+| ネットワーク | Discord API に接続できること |
+| 必要なもの | 有効なDiscord User Token |
+
+---
+
+## 🚀 インストール
+
+### 1. リポジトリをクローン
+
+```bash
+git clone https://github.com/rucyxyz/guild-cloner.git
+cd guild-cloner-web
+```
+
+### 2. 仮想環境を作成
+
+```
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# macOS / Linux
+source venv/bin/activate
+```
+
+### 3. 依存関係をインストール
+
+```
+pip install -r requirements.txt
+```
